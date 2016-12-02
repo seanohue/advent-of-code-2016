@@ -4,18 +4,28 @@ actor Main
 
 
 class Walker
-  let directions: String
+  let directions: Array[String]
   let starting: Point
+  let parsedDirections: 
+
   var current: Point
+  var heading: Direction = North
+
   new create(directions': String, starting': Point) =>
-    directions = directions'
+    directions = parseDirections(directions')
     starting = starting'
     current = starting'
-    heading = North
+  
+  fun ref parseDirections(dir: String): Array[String] => dir.split_by(", ")
+
+
 
 class Point
   let x: U64
   let y: U64
+  new create(x': U64, y': U64) =>
+    x = x'
+    y = y'
 
 primitive North
 primitive South
