@@ -6,7 +6,6 @@ actor Main
 class Walker
   let directions: Array[String]
   let starting: Point
-  let parsedDirections: 
 
   var current: Point
   var heading: Direction = North
@@ -16,9 +15,45 @@ class Walker
     starting = starting'
     current = starting'
   
-  fun ref parseDirections(dir: String): Array[String] => dir.split_by(", ")
+  fun parseDirections(dir: String): Array[String] => dir.split_by(", ")
 
+  fun ref walkOne(dir: String): => 
+    let clockwise: Bool = dir.contains("R")
+    let steps: String = dir.substring(1)
 
+    heading = findNewHeading(clockwise)
+    
+    
+
+  fun walk(): =>
+  """
+  Walk the whole array of directions. Called by main.
+  """
+
+  fun findNewHeading(clockwise: Bool) =>
+    if heading == North then
+      if clockwise then
+        return East
+      else 
+        return West
+
+    if heading == South then
+      if clockwise then
+          return West
+        else 
+          return East
+
+    if heading == East then
+        if clockwise then
+          return North
+        else 
+          return South
+
+    if heading == West then
+        if clockwise then
+          return South
+        else 
+          return North
 
 class Point
   let x: U64
@@ -32,3 +67,7 @@ primitive South
 primitive East
 primitive West
 type Direction is (North | South | East | West)
+
+primitive DirectionList 
+  fun tag apply(): Array[Direction] =>
+    [ North, East, South, West ] // Clockwise
