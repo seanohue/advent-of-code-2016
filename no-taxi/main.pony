@@ -26,17 +26,21 @@ class Walker
   fun ref walk(): Point ? =>
     let parsedDirections: Array[String] = parseDirections()
     env.out.print("Number of steps: " + parsedDirections.size().string())
+    
     for step in parsedDirections.values() do
       env.out.print("This step is: " + step)
       env.out.print("Is there a next step? " + parsedDirections.values().has_next().string())
+      
       if step.eq("") then continue else walkOne(step) end
     end
+
     distance
     
   fun parseDirections(): Array[String] => directions.split(", ")
 
   fun ref walkOne(dir: String): Point ? => 
     env.out.print("Walking through one step. Step is... " + dir)
+    
     let clockwise: Bool = dir.contains("R")
     var steps: String = dir.substring(1)
 
@@ -49,11 +53,13 @@ class Walker
     env.out.print("Old distance is " + distance.result())
     distance = changeDistanceWalked(steps)
     env.out.print("New distance... ".add(distance.result()))
+    
     distance
 
 
   fun ref findNewHeading(clockwise: Bool): Direction =>
     env.out.print("Calculating the current heading...")
+    
     match heading
     | North => return if clockwise then East else West end
     | South => return if clockwise then West else East end
@@ -66,20 +72,25 @@ class Walker
   fun ref changeDistanceWalked(steps: String): Point ? => 
     env.out.print("Calculating distance walked...")
     env.out.print("Steps are (string): " + steps)
+    
     let walked: I64 = steps.i64() 
-    env.out.print("Got past the walked deal thing...")
+    
     var x: I64 = distance.x
     var y: I64 = distance.y
+    
     env.out.print("x is " + x.string() + " and y is " + y.string())
     env.out.print("Steps converted to: ".add(walked.string()))
+    
     walkTo(x, y, walked)
 
   fun ref walkTo(x: I64, y: I64, walked: I64): Point => 
     var destination: Point = getDestination(x, y,  walked)
     var current: Point = Point(x, y)
+    
     while not current.eq(destination) do 
       current = getDestination(current.x, current.y, 1)
       env.out.print("VISITED SPOTS: " + visited.size().string())
+      
       if haveVisited(current) and not found then 
         found = true
         env.out.print("HQ IS AT: " + current.result()) 
@@ -90,6 +101,7 @@ class Walker
     else 
       current
     end
+    
     destination
 
   fun haveVisited(cur: Point): Bool =>
