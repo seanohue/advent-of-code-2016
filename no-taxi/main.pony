@@ -13,12 +13,15 @@ class Walker
 
   var distance: Point
   var heading: Direction = North
+  var visited: Array[Point]
+  var found: Bool = false
 
   new create(directions': String, starting': Point, env': Env) =>
     directions = directions'
     starting = starting'
     distance = starting'
     env = env'
+    visited = [starting]
   
   fun ref walk(): Point ? =>
     let parsedDirections: Array[String] = parseDirections()
@@ -28,7 +31,6 @@ class Walker
       env.out.print("Is there a next step? " + parsedDirections.values().has_next().string())
       if step.eq("") then continue else walkOne(step) end
     end
-    env.out.print(printCurrentCoords())
     distance
     
   fun parseDirections(): Array[String] => directions.split(", ")
@@ -70,7 +72,35 @@ class Walker
     var y: I64 = distance.y
     env.out.print("x is " + x.string() + " and y is " + y.string())
     env.out.print("Steps converted to: ".add(walked.string()))
-    match heading
+    walkTo(x, y, walked)
+
+  fun ref walkTo(x: I64, y: I64, walked: I64): Point => 
+    var destination: Point = getDestination(x, y,  walked)
+    var current: Point = Point(x, y)
+    while not current.eq(destination) do 
+      current = getDestination(current.x, current.y, 1)
+      env.out.print("VISITED SPOTS: " + visited.size().string())
+      if haveVisited(current) and not found then 
+        found = true
+        env.out.print("HQ IS AT: " + current.result()) 
+        current
+        break 
+      end     
+      visited.push(current)     
+    else 
+      current
+    end
+    destination
+
+  fun haveVisited(cur: Point): Bool =>
+    for spot in visited.values() do
+      if spot.eq(cur) then return true else continue end
+    else 
+      false
+    end
+  
+  fun ref getDestination(x: I64, y: I64, walked: I64): Point => 
+  match heading
     | North => return Point(x, y + walked)
     | South => return Point(x, y - walked)
     | East  => return Point(x + walked, y) 
@@ -79,7 +109,7 @@ class Walker
       env.out.print("everything is a lie")
       return Point(distance.x, distance.y)
     end
-  
+
   fun printCurrentCoords(): String => distance.result()
       
 
@@ -91,6 +121,7 @@ class Point
     y = y'
 
   fun result(): String => x.string().add(", ").add(y.string())
+  fun eq(other: Point): Bool => x.eq(other.x) and y.eq(other.y)
 
 primitive North fun string(): String => "N"
 primitive South fun string(): String => "S"
