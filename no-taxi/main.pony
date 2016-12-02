@@ -39,37 +39,12 @@ class Walker
 
 
   fun findNewHeading(clockwise: Bool): Direction =>
-    if heading == North then
-      if clockwise then
-        return East
-      else 
-        return West
-      end
-    end
-
-    if heading == South then
-      if clockwise then
-          return West
-        else 
-          return East
-      end
-    end
-
-    if heading == East then
-        if clockwise then
-          return North
-        else 
-          return South
-        end
-    end
-
-    if heading == West then
-        if clockwise then
-          return South
-        else 
-          return North
-        end
-    end
+    match heading
+    | North => if clockwise then East else West
+    | South => if clockwise then West else East
+    | East  => if clockwise then South else North
+    | West  => if clockwise then North else South
+    
 
 class Point
   let x: U64
