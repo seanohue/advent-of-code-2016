@@ -10,13 +10,13 @@ class Walker
   let directions: String
   let starting: Point
 
-  var current: Point
+  var distance: Point
   var heading: Direction = North
 
   new create(directions': String, starting': Point) =>
     directions = directions'
     starting = starting'
-    current = starting'
+    distance = starting'
   
   fun parseDirections(): Array[String] => directions.split(", ")
 
@@ -25,13 +25,35 @@ class Walker
     let steps: String = dir.substring(1)
 
     heading = findNewHeading(clockwise)
+    distance = changeDistanceWalked(steps)
+  
+  fun walk(): String =>
+    let parsedDirections: Array[String] = parseDirections(directions)
+    for step in parsedDirections.values() do
+      walkOne(step)
+    end
+    'lol'
 
-  fun walk(): String => "lol"
-  """
-  Walk the whole array of directions. Called by main.
-  """
+  fun changeDistanceWalked(steps: String): Point => 
+    let distanceMultiplier: U64 = getDistanceMultiplier()
+    let numberSteps: U64 = steps.u64() 
+    let walked: U64 = numberSteps * distanceMultiplier
+    match heading
+    | North => return Point(distance.x, distance.y + walked)
+    | South => return Point(distance.x, distance.y + walked)
+    | East  => return Point(distance.x + walked, distance.y) 
+    | West  => return Point(distance.x + walked, distance.y)
+    else 
+      Point(distance.x, distance.y)
+    end
 
-
+  fun getDistanceMultiplier(): U64 =>
+    match heading
+    | North or East => return 1
+    | South or West => return -1
+    else 
+      0
+    end
   
   fun printCurrentCoords(): String => "UNIMPLEMENTED;;;"
 
