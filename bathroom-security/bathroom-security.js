@@ -1,14 +1,19 @@
 class Keypad {
-  constructor() {
+  constructor(keysType) {
     this._x = 1;
     this._y = 1;
     this.pressed = [];
+    this.keysType = keysType
   }
 
   get KEYS() { 
-    return [['1', '2', '3'],
-            ['4', '5', '6'],
-            ['7', '8', '9']]; 
+    const keypads = {
+      square: [['1', '2', '3'],
+               ['4', '5', '6'],
+               ['7', '8', '9']],
+      diamond: [[ , '1', ]]
+    };
+    return keypads[this.keysType];
   }
 
   get currentKey() { 
@@ -22,7 +27,11 @@ class Keypad {
   set y(n) { if (this.inbounds(n)) { this._y = n; } }
 
   inbounds(n) {
-    return (n > -1) && (n < 3);
+    const boundsCheckers = {
+      square:  n => (n > -1) && (n < 3),
+      diamond: n => true
+    };
+    return boundsCheckers[this.keysType](n);
   }
 
   decode(directionsStr) {

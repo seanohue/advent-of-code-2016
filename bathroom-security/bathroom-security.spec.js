@@ -6,27 +6,28 @@ RRDDD
 LURDL
 UUUUD`
 
+
 describe('Decoder', () => {
   it('should be able to reach correct code based on directions', () =>{
-    const keypad = new Keypad();
+    const keypad = new Keypad('square');
     expect(keypad.decode(directions)).to.equal('1985');
   });
 });
 
 describe('Keypad', () => {
   it('should instantiate with 5 as the default key', () => {
-    const keys = new Keypad();
+    const keys = new Keypad('square');
     expect(keys.currentKey).to.equal('5')
   });
 
   it('should be able to move keys and return the new key', () => {
-    const keys = new Keypad();
+    const keys = new Keypad('square');
     const newKey = keys.go('R');
     expect(newKey).to.equal('6');
   });
 
   it('should not wrap or go out of bounds of keyboard', () => {
-    const keys = new Keypad();
+    const keys = new Keypad('square');
     keys.go('R');
     const newKey = keys.go('R');
     expect(newKey).to.equal('6');
