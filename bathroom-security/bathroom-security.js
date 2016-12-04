@@ -27,16 +27,16 @@ class Keypad {
   get y() { return this._y; }
   
   set x(n) { 
-    if (this.inbounds(n) && this.KEYS[this.y][n]) { this._x = n; } 
+    if (this.inbounds(n)) { this._x = n; } 
   }
   set y(n) { 
-    if (this.inbounds(n) && this.KEYS[n]){ this._y = n; } 
+    if (this.inbounds(n)){ this._y = n; } 
   }
 
   inbounds(n) {
     const boundsCheckers = {
       square:  n => (n > -1) && (n < 3),
-      diamond: n => (n > -1) && (n < 4)
+      diamond: n => (n > -1) && (n < 4) && this.KEYS[n][n]
     };
     return boundsCheckers[this.keysType](n);
   }
