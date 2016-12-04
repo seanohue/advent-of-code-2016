@@ -36,7 +36,7 @@ class Keypad {
   inbounds(n) {
     const boundsCheckers = {
       square:  n => (n > -1) && (n < 3),
-      diamond: n => (n > -1) && (n < 4) && this.KEYS[n][n]
+      diamond: n => (n > -1) && (n < 4)
     };
     return boundsCheckers[this.keysType](n);
   }
@@ -74,8 +74,23 @@ class Keypad {
   }
   
   changeKey(x, y) {
-    this.x += x;
-    this.y += y;
+    const changers = {
+      square: (x, y) => {
+        this.x += x;
+        this.y += y;
+      },
+      diamond: (x, y) => {
+        const newX = this.x + x;
+        const newY = this.y + y;
+       
+        if (this.KEYS[newY] && this.KEYS[newY][newX]) {
+          this.x += x;
+          this.y += y;
+        }
+      }
+    };
+
+    return changers[this.keysType](x, y);
   }
 
 }

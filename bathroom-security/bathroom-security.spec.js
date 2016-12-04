@@ -47,7 +47,7 @@ describe('Diamond Keypad', () => {
     expect(newKey).to.equal('7');
   });
 
-  it('should still be able to do decoding.', () => {
+  it.only('should still be able to do decoding.', () => {
     const keys = new Keypad('diamond');
     expect(keys.decode(directions)).to.equal('5DB3');
   });
