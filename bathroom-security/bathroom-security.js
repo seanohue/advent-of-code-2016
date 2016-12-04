@@ -5,11 +5,14 @@ class Keypad {
     this.pressed = [];
   }
 
+  get KEYS() { 
+    return [['1', '2', '3'],
+            ['4', '5', '6'],
+            ['7', '8', '9']]; 
+  }
+
   get currentKey() { 
-    const KEYS = [['1', '2', '3'],
-                  ['4', '5', '6'],
-                  ['7', '8', '9']];
-    return KEYS[this.y][this.x]; 
+    return this.KEYS[this.y][this.x]; 
   }
 
   get x() { return this._x; }
