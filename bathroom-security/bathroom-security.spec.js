@@ -14,7 +14,7 @@ describe('Decoder', () => {
   });
 });
 
-describe('Keypad', () => {
+describe('Square Keypad', () => {
   it('should instantiate with 5 as the default key', () => {
     const keys = new Keypad('square');
     expect(keys.currentKey).to.equal('5')
@@ -31,5 +31,24 @@ describe('Keypad', () => {
     keys.go('R');
     const newKey = keys.go('R');
     expect(newKey).to.equal('6');
+  });
+});
+
+describe('Diamond Keypad', () => {
+  it('should instantiate with 5 as the default key', () => {
+    const keys = new Keypad('diamond');
+    expect(keys.currentKey).to.equal('5')
+  });
+
+  it('should be able to move and stuff tho', () => {
+    const keys = new Keypad('diamond');
+    keys.go('R');
+    const newKey = keys.go('R');
+    expect(newKey).to.equal('7');
+  });
+
+  it('should still be able to do decoding.', () => {
+    const keys = new Keypad('diamond');
+    expect(keys.decode(directions)).to.equal('5DB3');
   });
 });

@@ -1,35 +1,42 @@
 class Keypad {
   constructor(keysType) {
-    this._x = 1;
-    this._y = 1;
+    this._x = keysType === 'square' ? 1 : 0;
+    this._y = keysType === 'square' ? 1 : 2;
     this.pressed = [];
-    this.keysType = keysType
+    this.keysType = keysType;
   }
 
   get KEYS() { 
     const keypads = {
-      square: [['1', '2', '3'],
-               ['4', '5', '6'],
-               ['7', '8', '9']],
-      diamond: [[ , '1', ]]
+      square:  [['1', '2', '3'],
+                ['4', '5', '6'],
+                ['7', '8', '9']],
+
+      diamond: [[ '', '','1', '', ''],
+                [ '','2','3','4', ''],
+                ['5','6','7','8','9'],
+                [ '','A','B','C', ''],
+                [ '', '','D', '', '']],
     };
     return keypads[this.keysType];
   }
 
-  get currentKey() { 
-    return this.KEYS[this.y][this.x]; 
-  }
+  get currentKey() { return this.KEYS[this.y][this.x]; }
 
   get x() { return this._x; }
   get y() { return this._y; }
   
-  set x(n) { if (this.inbounds(n)) { this._x = n; } }
-  set y(n) { if (this.inbounds(n)) { this._y = n; } }
+  set x(n) { 
+    if (this.inbounds(n) && this.KEYS[this.y][n]) { this._x = n; } 
+  }
+  set y(n) { 
+    if (this.inbounds(n) && this.KEYS[n]){ this._y = n; } 
+  }
 
   inbounds(n) {
     const boundsCheckers = {
       square:  n => (n > -1) && (n < 3),
-      diamond: n => true
+      diamond: n => (n > -1) && (n < 4)
     };
     return boundsCheckers[this.keysType](n);
   }
