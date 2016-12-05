@@ -20,16 +20,20 @@ defmodule Triangles do
 
   @spec parseStringToTriangle(String.t) :: triangle
   def parseStringToTriangle(str) do
-    splitStr = Enum.filter(String.split(str, " "), fn(s) -> String.length(s) > 0 end)
-    parsed = Enum.map(splitStr, &Integer.parse/1)
-    Enum.map(parsed, fn({ k, _ }) -> k end )
+
+    str
+    |> String.split(" ")
+    |> Enum.filter(fn(s) -> String.length(s) > 0 end)
+    |> Enum.map(&Integer.parse/1)
+    |> Enum.map(fn({ k, _ }) -> k end )
   end
 
   @spec checkString(String.t) :: integer
   def checkString(str) do
-    list = parseStringToTriangles(str)
-    checked = Enum.filter(list, &(isLegit(&1)))
-    length(checked)
+    str
+    |> parseStringToTriangles
+    |> Enum.filter(&(isLegit(&1)))
+    |> length
   end
 
   @spec checkStringTransposed(String.t) :: integer
