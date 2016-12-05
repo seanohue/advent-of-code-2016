@@ -16,10 +16,12 @@ defmodule Triangles do
   end
 
   def parseStringToTriangle(str) do
-    splitStr = String.split(str, " ")
+    splitStr = Enum.filter(String.split(str, " "), fn(s) -> String.length(s) > 0 end)
     parsed = Enum.map(splitStr, fn(s) -> Integer.parse(s) end)
-    Enum.map(parsed, fn({ k, _ }) -> k end)
+    Enum.map(parsed, fn({ k, _ }) -> k end )
   end
+
+
 
   def checkString(str) do
     list = parseStringToTriangles(str)
