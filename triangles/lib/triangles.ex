@@ -1,5 +1,5 @@
 defmodule Triangles do
-  @type triangle :: [number, ...]
+  @type triangle :: list(number)
 
   @spec isLegit(triangle) :: boolean
   def isLegit(tri) do
