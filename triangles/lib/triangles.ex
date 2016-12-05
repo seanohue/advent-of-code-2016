@@ -17,18 +17,21 @@ defmodule Triangles do
     Enum.map(trimmedLines, fn(line) -> parseStringToTriangle(line) end)   
   end
 
+  @spec parseStringToTriangle(String.t) :: triangle
   def parseStringToTriangle(str) do
     splitStr = Enum.filter(String.split(str, " "), fn(s) -> String.length(s) > 0 end)
     parsed = Enum.map(splitStr, &Integer.parse/1)
     Enum.map(parsed, fn({ k, _ }) -> k end )
   end
 
+  @spec checkString(String.t) :: integer
   def checkString(str) do
     list = parseStringToTriangles(str)
     checked = Enum.filter(list, &(isLegit(&1)))
     length(checked)
   end
 
+  @spec checkStringTransposed(String.t) :: integer
   def checkStringTransposed(str) do
     list = parseStringToTriangles(str)
     transposedList = transposeListOfTriangles(list)
@@ -36,6 +39,7 @@ defmodule Triangles do
     length(checked)
   end
 
+  @spec transposeListOfTriangles(list(triangle)) :: list(triangle)
   def transposeListOfTriangles(list) do
     list
     |> Transpose1.transpose
@@ -43,6 +47,7 @@ defmodule Triangles do
     |> pickTrianglesFromTransposed
   end
 
+  @spec pickTrianglesFromTransposed(list(any)) :: list(triangle)
   def pickTrianglesFromTransposed(list) do
     Enum.chunk(list, 3)
   end
