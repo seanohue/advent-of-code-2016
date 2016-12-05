@@ -4,7 +4,7 @@ const Keypad = require('./bathroom-security').Keypad;
 const directions = `ULL
 RRDDD
 LURDL
-UUUUD`
+UUUUD`;
 
 
 describe('Decoder', () => {

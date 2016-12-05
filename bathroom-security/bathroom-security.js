@@ -30,7 +30,7 @@ class Keypad {
     if (this.inbounds(n)) { this._x = n; } 
   }
   set y(n) { 
-    if (this.inbounds(n)){ this._y = n; } 
+    if (this.inbounds(n)) { this._y = n; } 
   }
 
   inbounds(n) {
