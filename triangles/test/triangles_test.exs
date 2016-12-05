@@ -19,4 +19,10 @@ defmodule TrianglesTest do
     assert Triangles.parseStringToTriangles(triangleStr) == expected
   end
   
+  test "parse string of single triangle to triangle" do
+    triangleStr = "5 10 25"
+    expected = [5, 10, 25]
+    assert Triangles.parseStringToTriangle(triangleStr) == expected
+  end
+  
 end
