@@ -36,7 +36,7 @@ class Keypad {
   inbounds(n) {
     const boundsCheckers = {
       square:  n => (n > -1) && (n < 3),
-      diamond: n => (n > -1) && (n < 4)
+      diamond: n => (n > -1) && (n < 5)
     };
     return boundsCheckers[this.keysType](n);
   }
@@ -56,6 +56,7 @@ class Keypad {
   }
 
   press()  { 
+    console.log(`Pressing ${this.currentKey}!`);
     this.pressed.push(this.currentKey); 
     return this.currentKey;
   }
@@ -63,6 +64,7 @@ class Keypad {
   submit() { return this.pressed.join(''); }
 
   go(dir) {
+    console.log(`Direction is ${dir}.`);
     const coordinateChanges = {
       'R': [  1,  0 ],
       'L': [ -1,  0 ],
@@ -74,6 +76,7 @@ class Keypad {
   }
   
   changeKey(x, y) {
+    
     const changers = {
       square: (x, y) => {
         this.x += x;
@@ -84,8 +87,10 @@ class Keypad {
         const newY = this.y + y;
        
         if (this.KEYS[newY] && this.KEYS[newY][newX]) {
-          this.x += x;
-          this.y += y;
+          this.x = newX;
+          this.y = newY;
+          console.log(`Changed to ${newX}, ${newY}.`);
+          console.log(`New key is ${this.currentKey}.`);
         }
       }
     };
