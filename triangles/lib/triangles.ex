@@ -38,10 +38,11 @@ defmodule Triangles do
 
   @spec checkStringTransposed(String.t) :: integer
   def checkStringTransposed(str) do
-    list = parseStringToTriangles(str)
-    transposedList = transposeListOfTriangles(list)
-    checked = Enum.filter(transposedList, &(isLegit(&1)))
-    length(checked)
+    str 
+    |> parseStringToTriangles
+    |> transposeListOfTriangles
+    |> Enum.filter(&(isLegit(&1)))
+    |> length
   end
 
   @spec transposeListOfTriangles(list(triangle)) :: list(triangle)
