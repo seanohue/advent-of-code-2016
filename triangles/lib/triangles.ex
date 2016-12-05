@@ -18,7 +18,13 @@ defmodule Triangles do
   def parseStringToTriangle(str) do
     splitStr = String.split(str, " ")
     parsed = Enum.map(splitStr, fn(s) -> Integer.parse(s) end)
-    Enum.map(parsed, fn({ k, v }) -> k end)
+    Enum.map(parsed, fn({ k, _ }) -> k end)
+  end
+
+  def checkString(str) do
+    list = parseStringToTriangles(str)
+    checked = Enum.filter(list, fn(tri) -> isLegit(tri) end)
+    length(checked)
   end
 
 end

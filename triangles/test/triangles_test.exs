@@ -24,5 +24,11 @@ defmodule TrianglesTest do
     expected = [5, 10, 25]
     assert Triangles.parseStringToTriangle(triangleStr) == expected
   end
-  
+
+  test "should be able to find out how many triangles are legit in a big list string" do
+    triangleStr = "5 10 25
+    5 10 12"
+    assert Triangles.checkString(triangleStr) == 1
+  end
+
 end
