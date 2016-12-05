@@ -12,9 +12,10 @@ defmodule Triangles do
 
   @spec parseStringToTriangles(String.t) :: list(triangle)
   def parseStringToTriangles(str) do
-    splitByLine = String.split(str, "\n")
-    trimmedLines = Enum.map(splitByLine, fn(line) -> String.trim(line) end)
-    Enum.map(trimmedLines, fn(line) -> parseStringToTriangle(line) end)   
+    str 
+    |> String.split("\n")
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&(parseStringToTriangle(&1)))   
   end
 
   @spec parseStringToTriangle(String.t) :: triangle
