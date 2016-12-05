@@ -8,4 +8,9 @@ defmodule Triangles do
     largest < (Enum.sum(sorted) - largest)
   end
 
+  @spec parseStringToTriangles(String.t) :: list(triangle)
+  def parseStringToTriangles(str) do
+    
+  end
+
 end
