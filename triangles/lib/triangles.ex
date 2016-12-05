@@ -19,25 +19,28 @@ defmodule Triangles do
 
   def parseStringToTriangle(str) do
     splitStr = Enum.filter(String.split(str, " "), fn(s) -> String.length(s) > 0 end)
-    parsed = Enum.map(splitStr, fn(s) -> Integer.parse(s) end)
+    parsed = Enum.map(splitStr, &Integer.parse/1)
     Enum.map(parsed, fn({ k, _ }) -> k end )
   end
 
   def checkString(str) do
     list = parseStringToTriangles(str)
-    checked = Enum.filter(list, fn(tri) -> isLegit(tri) end)
+    checked = Enum.filter(list, &(isLegit(&1)))
     length(checked)
   end
 
   def checkStringTransposed(str) do
     list = parseStringToTriangles(str)
     transposedList = transposeListOfTriangles(list)
-    checked = Enum.filter(transposedList, fn(tri) -> isLegit(tri) end)
+    checked = Enum.filter(transposedList, &(isLegit(&1)))
     length(checked)
   end
 
   def transposeListOfTriangles(list) do
-    pickTrianglesFromTransposed(List.flatten(Transpose1.transpose(list)))
+    list
+    |> Transpose1.transpose
+    |> List.flatten
+    |> pickTrianglesFromTransposed
   end
 
   def pickTrianglesFromTransposed(list) do
