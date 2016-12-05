@@ -32,9 +32,9 @@ defmodule TrianglesTest do
   end
 
   test "should be able to read string of triangles by column as well" do
-    triangleStr = "5 10 25
-    5 10 12
-    8 15 16"
+    triangleStr = "  566  477  376
+  575  488  365
+   50   18  156"
 
     assert Triangles.checkStringTransposed(triangleStr) == 3
   end
