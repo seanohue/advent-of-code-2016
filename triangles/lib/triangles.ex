@@ -1,5 +1,5 @@
 defmodule Triangles do
-  require Transpose1
+  import Transpose1, only: [transpose: 1]
   @type triangle :: list(number)
 
   @spec isLegit(triangle) :: boolean
@@ -47,7 +47,7 @@ defmodule Triangles do
   @spec transposeListOfTriangles(list(triangle)) :: list(triangle)
   def transposeListOfTriangles(list) do
     list
-    |> Transpose1.transpose
+    |> transpose
     |> List.flatten
     |> pickTrianglesFromTransposed
   end
