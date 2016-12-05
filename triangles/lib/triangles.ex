@@ -20,7 +20,6 @@ defmodule Triangles do
 
   @spec parseStringToTriangle(String.t) :: triangle
   def parseStringToTriangle(str) do
-
     str
     |> String.split(" ")
     |> Enum.filter(fn(s) -> String.length(s) > 0 end)
