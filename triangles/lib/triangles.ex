@@ -1,4 +1,5 @@
 defmodule Triangles do
+  require Transpose1
   @type triangle :: list(number)
 
   @spec isLegit(triangle) :: boolean
@@ -21,12 +22,25 @@ defmodule Triangles do
     Enum.map(parsed, fn({ k, _ }) -> k end )
   end
 
-
-
   def checkString(str) do
     list = parseStringToTriangles(str)
     checked = Enum.filter(list, fn(tri) -> isLegit(tri) end)
     length(checked)
+  end
+
+  def checkStringTransposed(str) do
+    list = parseStringToTriangles(str)
+    transposedList = transposeListOfTriangles(list)
+    checked = Enum.filter(transposedList, fn(tri) -> isLegit(tri) end)
+    length(checked)
+  end
+
+  def transposeListOfTriangles(list) do
+    pickTrianglesFromTransposed(List.flatten(Transpose1.transpose(list)))
+  end
+
+  def pickTrianglesFromTransposed(list) do
+    Enum.chunk(list, 3)
   end
 
 end
