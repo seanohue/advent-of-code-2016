@@ -4,9 +4,10 @@ defmodule Triangles do
 
   @spec isLegit(triangle) :: boolean
   def isLegit(tri) do
-    sorted = Enum.sort(tri)
-    largest = List.last(sorted)
-    largest < (Enum.sum(sorted) - largest)
+    largest = tri 
+      |> Enum.sort 
+      |> List.last
+    largest < (Enum.sum(tri) - largest)
   end
 
   @spec parseStringToTriangles(String.t) :: list(triangle)
