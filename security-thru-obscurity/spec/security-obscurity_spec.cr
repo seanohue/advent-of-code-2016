@@ -35,7 +35,12 @@ describe Security::Obscurity do
   end
 
   describe "#sum_legit_rooms" do
-
+    it "can sum the room numbers of legitimate rooms" do
+      room_str = "aaaaa-bbb-z-y-x-123[abxyz]
+                  a-b-c-d-e-f-g-h-987[abcde]"
+      expected_sum = 123 + 987
+      Security::Obscurity.sum_legit_rooms(room_str).should eq expected_sum
+    end
   end
 
   describe "#get_rooms_by_str" do

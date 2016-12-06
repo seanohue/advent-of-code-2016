@@ -6,6 +6,12 @@ module Security::Obscurity
 
   def sum_legit_rooms(room_str)
     room_array = get_rooms_by_str(room_str)
+    room_numbers = room_array
+      .select { |s| check_room(s) }
+      .map { |s| get_room_number(s, get_check_sum(s)) }
+      .map { |s| s.to_i32 }
+    
+    room_numbers.reduce { |acc, n| acc + n }
   end
 
   def get_rooms_by_str(room_str)
