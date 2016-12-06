@@ -2,12 +2,21 @@ defmodule Triangles do
   import Transpose1, only: [transpose: 1]
   @type triangle :: list(number)
 
-  @spec isLegit(triangle) :: boolean
-  def isLegit(tri) do
-    largest = tri 
-      |> Enum.sort 
-      |> List.last
-    largest < (Enum.sum(tri) - largest)
+  @spec checkString(String.t) :: integer
+  def checkString(str) do
+    str
+    |> parseStringToTriangles
+    |> Enum.filter(&(isLegit(&1)))
+    |> length
+  end
+
+  @spec checkStringTransposed(String.t) :: integer
+  def checkStringTransposed(str) do
+    str 
+    |> parseStringToTriangles
+    |> transposeListOfTriangles
+    |> Enum.filter(&(isLegit(&1)))
+    |> length
   end
 
   @spec parseStringToTriangles(String.t) :: list(triangle)
@@ -26,21 +35,12 @@ defmodule Triangles do
     |> Enum.map(&String.to_integer/1)
   end
 
-  @spec checkString(String.t) :: integer
-  def checkString(str) do
-    str
-    |> parseStringToTriangles
-    |> Enum.filter(&(isLegit(&1)))
-    |> length
-  end
-
-  @spec checkStringTransposed(String.t) :: integer
-  def checkStringTransposed(str) do
-    str 
-    |> parseStringToTriangles
-    |> transposeListOfTriangles
-    |> Enum.filter(&(isLegit(&1)))
-    |> length
+  @spec isLegit(triangle) :: boolean
+  def isLegit(tri) do
+    largest = tri 
+      |> Enum.sort 
+      |> List.last
+    largest < (Enum.sum(tri) - largest)
   end
 
   @spec transposeListOfTriangles(list(triangle)) :: list(triangle)
