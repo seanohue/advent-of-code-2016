@@ -20,48 +20,18 @@ module Security::Obscurity
   end
 
   def is_legit_room(encrypted_name, check_sum)
+    frequency = get_frequency_map(encrypted_name)
+    decoded_name = decode_by_freq(get_highest_five(frequency)).join 
+    decoded_name == check_sum
+  end
+
+  def get_frequency_map(encrypted_name)
     freq = {} of Char => Int32
 
     encrypted_name.each_char do |char|  
       count_char(freq, char)
     end
-
-    threshold = [] of Int32
-    freq.each do |char, amt|
-      count_top_five(threshold, amt)
-    end
-
-    threshold.sort![0]
-    puts "threshold list"
-    puts threshold
-    highest_five = freq.select do |k, v|
-      v >= threshold[0]
-    end
-    puts "highest five map"
-    puts highest_five
-    decoded_array = [] of Char
-    highest_five.each do |k, v|
-      decoded_array.push k
-    end
-
-    decoded_name = decoded_array.sort[0..4].join 
-    puts "decode"
-    puts decoded_name
-    puts "check_sum"
-    puts check_sum
-    decoded_name == check_sum
-  end
-
-
-  def count_top_five(threshold, amt)
-    if threshold.size < 6
-        threshold.push amt
-      else
-        threshold.sort!
-        if amt > threshold[0]
-          threshold[0] = amt
-        end
-      end
+    freq
   end
 
   def count_char(freq, char)
@@ -69,6 +39,40 @@ module Security::Obscurity
         freq[char] = freq[char] + 1
       else
         freq[char] = 1
+      end
+  end
+
+  def decode_by_freq(highest_five)
+    decoded_array = [] of Char
+    highest_five.each do |k, v|
+      decoded_array.push k
+    end
+    decoded_array.sort[0..4]
+  end
+
+  def get_highest_five(freq)
+    threshold = get_threshold(freq)
+    freq.select do |k, v|
+      v >= threshold
+    end
+  end
+
+  def get_threshold(freq)
+    threshold_list = [] of Int32
+    freq.each do |char, amt|
+      count_top_five(threshold_list, amt)
+    end
+    threshold_list.sort![0]
+  end
+
+  def count_top_five(threshold_list, amt)
+    if threshold_list.size < 6
+        threshold_list.push amt
+      else
+        threshold_list.sort!
+        if amt > threshold_list[0]
+          threshold_list[0] = amt
+        end
       end
   end
 
