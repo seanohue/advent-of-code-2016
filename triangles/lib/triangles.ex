@@ -23,8 +23,7 @@ defmodule Triangles do
     str
     |> String.split(" ")
     |> Enum.filter(fn(s) -> String.length(s) > 0 end)
-    |> Enum.map(&Integer.parse/1)
-    |> Enum.map(fn({ k, _ }) -> k end )
+    |> Enum.map(&String.to_integer/1)
   end
 
   @spec checkString(String.t) :: integer
