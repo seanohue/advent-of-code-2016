@@ -1,5 +1,8 @@
 require "./security-obscurity/*"
 
 module Security::Obscurity
-  # TODO Put your code here
+  extend self
+  def check_room(hash)
+    true
+  end
 end
