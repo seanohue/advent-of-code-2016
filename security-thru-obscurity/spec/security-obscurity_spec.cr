@@ -21,5 +21,11 @@ describe Security::Obscurity do
       Security::Obscurity.get_check_sum("aaaaa-bbb-z-y-x-123[abxyz]").should eq "abxyz"
     end
   end
-  
+
+  describe "#get_encrypted_name" do
+    it "can pull encrypted name from hash" do 
+      Security::Obscurity.get_encrypted_name("a-b-c-d-e-f-g-h-987[abcde]", "abcde").should eq "abcdefgh"
+    end
+  end
+
 end

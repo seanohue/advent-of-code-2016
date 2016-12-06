@@ -5,6 +5,6 @@ authors:
   - Sean O'Donohue <sean.odonohue@detroitlabs.com>
 
 
-crystal: 0.19.4
+crystal: 0.20.0
 
 license: MIT
