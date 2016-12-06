@@ -34,4 +34,18 @@ describe Security::Obscurity do
     end
   end
 
+  describe "#sum_legit_rooms" do
+
+  end
+
+  describe "#get_rooms_by_str" do
+    it "can split a string of room names into an array of names" do
+      room_str = "aczupnetwp-mfyyj-opalcexpye-977[peyac]
+                  qzchnzbshud-cxd-trdq-sdrshmf-105[jqexn]"
+      room_array = ["aczupnetwp-mfyyj-opalcexpye-977[peyac]",
+                  "qzchnzbshud-cxd-trdq-sdrshmf-105[jqexn]"]
+      Security::Obscurity.get_rooms_by_str(room_str).should eq room_array
+    end
+  end
+
 end

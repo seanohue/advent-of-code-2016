@@ -4,12 +4,19 @@ require "string_scanner"
 module Security::Obscurity
   extend self
 
+  def sum_legit_rooms(room_str)
+    room_array = get_rooms_by_str(room_str)
+  end
+
+  def get_rooms_by_str(room_str)
+    room_str.gsub(/\s+/m, ' ').strip.split(" ")
+  end 
+
   def check_room(hash)
     check_sum = get_check_sum(hash)
     encrypted_name = get_encrypted_name(hash, check_sum)
     is_legit_room(encrypted_name, check_sum)
   end
-
 
   def get_check_sum(hash)
     hash[/(?<=\[).+?(?=\])/]
