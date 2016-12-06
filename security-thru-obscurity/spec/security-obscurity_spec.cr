@@ -28,4 +28,10 @@ describe Security::Obscurity do
     end
   end
 
+  describe "#get_room_number" do
+    it "can get three digit room number from hash" do
+      Security::Obscurity.get_room_number("a-b-c-d-e-f-g-h-987[abcde]", "abcde").should eq "987"
+    end
+  end
+
 end

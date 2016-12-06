@@ -18,4 +18,8 @@ module Security::Obscurity
     hash.chomp("[" + check_sum + "]").chop.chop.chop.delete("-")
   end
 
+  def get_room_number(hash, check_sum)
+    hash.chomp("[" + check_sum + "]")[-3, 3]
+  end
+
 end
