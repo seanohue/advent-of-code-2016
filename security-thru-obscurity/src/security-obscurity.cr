@@ -21,10 +21,47 @@ module Security::Obscurity
 
   def is_legit_room(encrypted_name, check_sum)
     freq = {} of Char => Int32
+
     encrypted_name.each_char do |char|  
       count_char(freq, char)
     end
-    true
+
+    threshold = [] of Int32
+    freq.each do |char, amt|
+      count_top_five(threshold, amt)
+    end
+
+    threshold.sort![0]
+    puts "threshold list"
+    puts threshold
+    highest_five = freq.select do |k, v|
+      v >= threshold[0]
+    end
+    puts "highest five map"
+    puts highest_five
+    decoded_array = [] of Char
+    highest_five.each do |k, v|
+      decoded_array.push k
+    end
+
+    decoded_name = decoded_array.sort[0..4].join 
+    puts "decode"
+    puts decoded_name
+    puts "check_sum"
+    puts check_sum
+    decoded_name == check_sum
+  end
+
+
+  def count_top_five(threshold, amt)
+    if threshold.size < 6
+        threshold.push amt
+      else
+        threshold.sort!
+        if amt > threshold[0]
+          threshold[0] = amt
+        end
+      end
   end
 
   def count_char(freq, char)
@@ -34,7 +71,6 @@ module Security::Obscurity
         freq[char] = 1
       end
   end
-
 
   def remove_check_sum(hash, check_sum)
     hash.chomp("[" + check_sum + "]")
