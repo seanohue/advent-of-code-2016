@@ -1,5 +1,4 @@
 require "./security-obscurity/*"
-require "string_scanner"
 
 module Security::Obscurity
   extend self
@@ -19,7 +18,11 @@ module Security::Obscurity
   end 
 
   def check_room(hash)
+    puts "CHECKING::::"
+    puts hash
     check_sum = get_check_sum(hash)
+    puts "check sum::::"
+    puts check_sum
     encrypted_name = get_encrypted_name(hash, check_sum)
     is_legit_room(encrypted_name, check_sum)
   end
@@ -35,6 +38,8 @@ module Security::Obscurity
   def is_legit_room(encrypted_name, check_sum)
     frequency = get_frequency_map(encrypted_name)
     decoded_name = decode_by_freq(get_highest_five(frequency)).join 
+    puts "decoded name::::"
+    puts decoded_name
     decoded_name == check_sum
   end
 

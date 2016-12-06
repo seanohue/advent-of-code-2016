@@ -11,6 +11,10 @@ describe Security::Obscurity do
       Security::Obscurity.check_room("a-b-c-d-e-f-g-h-987[abcde]").should eq true
     end
 
+    it "can find another trickier legit room" do
+      Security::Obscurity.check_room("not-a-real-room-404[oarel]").should eq true
+    end
+
     it "can find a decoy room" do 
       Security::Obscurity.check_room("totally-real-room-200[decoy]").should eq false
     end
@@ -41,6 +45,15 @@ describe Security::Obscurity do
       expected_sum = 123 + 987
       Security::Obscurity.sum_legit_rooms(room_str).should eq expected_sum
     end
+  
+    it "can sum several room numbers of legit rooms" do
+      room_str = "aaaaa-bbb-z-y-x-123[abxyz]
+                  a-b-c-d-e-f-g-h-987[abcde]
+                  not-a-real-room-404[oarel]
+                  totally-real-room-200[decoy]"
+      expected_sum = 1514
+      Security::Obscurity.sum_legit_rooms(room_str).should eq expected_sum
+    end
   end
 
   describe "#get_rooms_by_str" do
@@ -52,5 +65,6 @@ describe Security::Obscurity do
       Security::Obscurity.get_rooms_by_str(room_str).should eq room_array
     end
   end
+
 
 end
