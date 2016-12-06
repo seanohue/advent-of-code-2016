@@ -1,0 +1,10 @@
+name: security-obscurity
+version: 0.1.0
+
+authors:
+  - Sean O'Donohue <sean.odonohue@detroitlabs.com>
+
+
+crystal: 0.19.4
+
+license: MIT
