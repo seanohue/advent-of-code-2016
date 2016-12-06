@@ -16,4 +16,10 @@ describe Security::Obscurity do
     end
   end
 
+  describe "#get_check_sum" do
+    it "can pull check sum from hash" do
+      Security::Obscurity.get_check_sum("aaaaa-bbb-z-y-x-123[abxyz]").should eq "abxyz"
+    end
+  end
+  
 end
