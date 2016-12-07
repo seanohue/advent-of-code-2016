@@ -1,10 +1,16 @@
 package chess
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestPasswordChess(t *testing.T) {
-	if Decode("abc") != "18f47a30" {
-		t.Error("Failed to decode.")
+	decoded := Decode("abc")
+	if decoded != "18f47a30" {
+		fmt.Println("Got: ")
+		fmt.Println(decoded)
+		t.Error("Failed to decode: ")
 	}
 }
 
@@ -16,7 +22,7 @@ func TestHasher(t *testing.T) {
 }
 
 func TestInterestingHashFinder(t *testing.T) {
-	if FindInterestingHash(Hash("abc", 3231929)) != true {
+	if IsInterestingHash(Hash("abc", 3231929)) != true {
 		t.Error("Did not catch the interesting hash")
 	}
 }

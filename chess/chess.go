@@ -6,11 +6,19 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 // Decode stuff.
 func Decode(password string) string {
-	return "18f47a30"
+	secret := ""
+	for i := 0; utf8.RuneCountInString(secret) < 8; i++ {
+		hash := Hash(password, i)
+		if IsInterestingHash(hash) {
+			secret += string([]rune(hash)[5])
+		}
+	}
+	return secret
 }
 
 // Hash a thing
@@ -21,7 +29,7 @@ func Hash(password string, index int) string {
 	return hex.EncodeToString(hash.Sum(nil))
 }
 
-// FindInterestingHash if the hash has five zeros.
-func FindInterestingHash(hash string) bool {
+// IsInterestingHash if the hash has five zeros.
+func IsInterestingHash(hash string) bool {
 	return strings.HasPrefix(hash, "00000")
 }
