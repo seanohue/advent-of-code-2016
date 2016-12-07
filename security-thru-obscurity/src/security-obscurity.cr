@@ -65,7 +65,8 @@ module Security::Obscurity
     highest_five.each do |k, v|
       decoded_array.push k
     end
-    decoded_array.sort[0..4]
+    puts "decoded and sorted array of chars"
+    decoded_array[0..4]
   end
 
   def get_highest_five(freq)
