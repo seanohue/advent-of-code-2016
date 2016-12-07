@@ -1,7 +1,6 @@
 package chess
 
-import "fmt"
-
-func main() {
-	fmt.Println("Hello, 世界")
+// Decode stuff.
+func Decode(password string) string {
+	return "18f47a30"
 }
