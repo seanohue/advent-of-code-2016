@@ -7,3 +7,10 @@ func TestPasswordChess(t *testing.T) {
 		t.Error("Failed to decode.")
 	}
 }
+
+func TestHasher(t *testing.T) {
+	interestingHash := Hash("abc", 3231929)
+	if interestingHash != "00000155f8105dff7f56ee10fa9b9abd" {
+		t.Error("Hashing is borked.")
+	}
+}
