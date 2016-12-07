@@ -1,10 +1,11 @@
 package chess
 
 import (
-	md5 "crypto/md5"
-	hex "encoding/hex"
-	io "io"
-	strconv "strconv"
+	"crypto/md5"
+	"encoding/hex"
+	"io"
+	"strconv"
+	"strings"
 )
 
 // Decode stuff.
@@ -18,4 +19,9 @@ func Hash(password string, index int) string {
 	io.WriteString(hash, password)
 	io.WriteString(hash, strconv.Itoa(index))
 	return hex.EncodeToString(hash.Sum(nil))
+}
+
+// FindInterestingHash if the hash has five zeros.
+func FindInterestingHash(hash string) bool {
+	return strings.HasPrefix(hash, "00000")
 }

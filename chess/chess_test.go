@@ -14,3 +14,9 @@ func TestHasher(t *testing.T) {
 		t.Error("Hashing is borked.")
 	}
 }
+
+func TestInterestingHashFinder(t *testing.T) {
+	if FindInterestingHash(Hash("abc", 3231929)) != true {
+		t.Error("Did not catch the interesting hash")
+	}
+}
