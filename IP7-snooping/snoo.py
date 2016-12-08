@@ -25,16 +25,16 @@ def find_snoopable(ip_address):
     """
     brackets = re.compile(r'\[(.*?)\]')
     decomposed_ip = brackets.split(ip_address)
-    
+
     hypernet = []
     for i, chunk in enumerate(decomposed_ip):
         if i != 0 and not i % 2:
             hypernet.append(chunk)
 
-    rest_of_ip = ''.join(list(set(decomposed_ip).difference(hypernet)))
-    hypernet = ''.join(hypernet)
-    has_good_abba = find_abba(rest_of_ip)
-    has_bad_abba = find_abba(hypernet)
+    rest_of_ip = list(set(decomposed_ip).difference(hypernet))
+
+    has_good_abba = some(find_abba, hypernet)
+    has_bad_abba = some(find_abba, rest_of_ip)
 
     if has_bad_abba:
         return False
@@ -54,6 +54,10 @@ def is_abba(chunk):
     "Looks at a chunk of 4 chars and determines if it fits ABBA pattern."
     first, second, third, last = chunk
     return first == last and second == third and not first == second
+
+def some(predicate, iterable):
+    "Do some of the items in the list match the predicate? An awful hack."
+    return len(filter(predicate, iterable)) > 0
 
 def group_by_four(string):
     """Chunks string into lists of 4 chars."""
