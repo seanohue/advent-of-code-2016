@@ -27,7 +27,9 @@ class TestSnooper(unittest.TestCase):
 
     def test_find_not_abba(self):
         """Finds non-ABBA False"""
+        print snoo.sum_snoopables()
         self.assertFalse(snoo.find_abba("HATS32FGGGGGGGG1"))
 
 if __name__ == '__main__':
     unittest.main()
+
