@@ -1,6 +1,7 @@
 """Snooper"""
 
 import re
+from itertools import izip_longest
 
 def find_snoopable(ip_address):
     """
@@ -20,5 +21,23 @@ def find_snoopable(ip_address):
 
 def find_abba(string):
     """Finds an ABBA pattern in a string and returns True if it exists else False"""
-    print string
-    return True
+    chunked = group_by_four(string)
+    has_abba = False
+    for chunk in chunked:
+        first, second, third, last = chunk
+        if first == last and second == third and not first == second:
+            has_abba = True
+
+    return has_abba
+
+def group_by_four(string):
+    """Chunks string into lists of 4 chars."""
+    return list(grouper(string, 4, ' '))
+
+def grouper(iterable, num, fillvalue=None):
+    """
+    le chunkifier
+    stolen from stack overflow's infamous Craz
+    """
+    args = [iter(iterable)] * num
+    return izip_longest(*args, fillvalue=fillvalue)
