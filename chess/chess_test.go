@@ -26,3 +26,12 @@ func TestInterestingHashFinder(t *testing.T) {
 		t.Error("Did not catch the interesting hash")
 	}
 }
+
+func TestSmarterDecoder(t *testing.T) {
+	decoded := SmarterDecode("abc")
+	if decoded != "05ace8e3" {
+		fmt.Println("Got:")
+		fmt.Println(decoded)
+		t.Error("Failed to decode smartly.")
+	}
+}
